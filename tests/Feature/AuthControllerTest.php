@@ -11,12 +11,6 @@ class AuthControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    // A happy senario
-
-    // A non happy senraio
-
-    // validations and input
-
     protected $user;
 
     public function setUp(): void
@@ -78,5 +72,30 @@ class AuthControllerTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJsonValidationErrorFor('password');
+    }
+
+    public function test_authenticated_user_can_logout(): void
+    {
+        $token = $this->user->createToken($this->user->name)->plainTextToken;
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token
+        ])->post(route('logout'));
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'user logged out'
+            ]);
+
+        $this->assertDatabaseMissing('personal_access_tokens', [
+            'tokenable' => $this->user->id
+        ]);
+    }
+
+    public function test_unauthenticated_user_cannot_logout(): void
+    {
+        $response = $this->post(route('logout'));
+
+        $response->assertStatus(401);
     }
 }
