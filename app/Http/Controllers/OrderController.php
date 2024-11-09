@@ -18,7 +18,7 @@ class OrderController extends Controller
         try {
             DB::beginTransaction();
 
-            $order = $createOrderAction->exectue($data);
+            $order = $createOrderAction->execute($data);
 
             DB::commit();
 

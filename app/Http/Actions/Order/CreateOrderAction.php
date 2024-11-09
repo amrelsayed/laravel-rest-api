@@ -7,7 +7,7 @@ use App\Models\Product;
 
 class CreateOrderAction
 {
-    public function exectue(array $data): Order
+    public function execute(array $data): Order
     {
         $orderPrice = 0;
         $products = [];
@@ -29,7 +29,6 @@ class CreateOrderAction
         ]);
 
         $order->products()->sync($products);
-        $order->save();
 
         return $order;
     }
