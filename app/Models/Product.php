@@ -26,7 +26,7 @@ class Product extends Model
     public function reduceStock(int $quantity): void
     {
         if ($this->stock < $quantity) {
-            throw new \Exception('Out of stock for: ' . $this->name);
+            throw new \Exception('Out of stock for: '.$this->name);
         }
 
         $this->stock -= $quantity;

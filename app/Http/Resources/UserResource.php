@@ -12,6 +12,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *     title="User Resource",
  *     description="User resource representation",
  *     required={"id", "name", "email", "created_at"},
+ *
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="name", type="string", example="John Doe"),
  *     @OA\Property(property="email", type="string", format="email", example="johndoe@example.com"),
@@ -28,10 +29,10 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id" => $this->id,
-            "name" => $this->name,
-            "email" => $this->email,
-            "created_at" => $this->created_at,
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'created_at' => $this->created_at,
         ];
     }
 }

@@ -32,7 +32,7 @@ class OrderControllerTest extends TestCase
             'products' => [
                 ['id' => 999, 'quantity' => 1],
                 ['id' => 1, 'quantity' => 0],
-            ]
+            ],
         ]);
 
         $response->assertStatus(422);
@@ -45,13 +45,13 @@ class OrderControllerTest extends TestCase
         $product = Product::factory()->create([
             'category_id' => $category->id,
             'price' => 100,
-            'stock' => 10
+            'stock' => 10,
         ]);
 
         $response = $this->postJson('/api/orders', [
             'products' => [
-                ['id' => $product->id, 'quantity' => 2]
-            ]
+                ['id' => $product->id, 'quantity' => 2],
+            ],
         ]);
 
         $response->assertStatus(200)
@@ -65,18 +65,18 @@ class OrderControllerTest extends TestCase
                         'id',
                         'name',
                         'email',
-                        'created_at'
+                        'created_at',
                     ],
                     'products' => [
-                        ['id', 'name', 'price', 'stock', 'created_at']
-                    ]
-                ]
+                        ['id', 'name', 'price', 'stock', 'created_at'],
+                    ],
+                ],
             ]);
 
         $this->assertDatabaseHas('orders', [
             'user_id' => auth()->id(),
             'total_price' => 200,
-            'status' => Order::STATUS['Placed']
+            'status' => Order::STATUS['Placed'],
         ]);
 
         $product->refresh();
@@ -90,13 +90,13 @@ class OrderControllerTest extends TestCase
         $product = Product::factory()->create([
             'category_id' => $category,
             'price' => 100,
-            'stock' => 10
+            'stock' => 10,
         ]);
 
         $response = $this->postJson('/api/orders', [
             'products' => [
-                ['id' => $product->id, 'quantity' => 11]
-            ]
+                ['id' => $product->id, 'quantity' => 11],
+            ],
         ]);
 
         $response->assertStatus(200)

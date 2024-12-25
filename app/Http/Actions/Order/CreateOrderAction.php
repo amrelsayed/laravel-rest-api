@@ -25,7 +25,7 @@ class CreateOrderAction
         $order = Order::create([
             'user_id' => auth()->user()->id,
             'total_price' => $orderPrice,
-            'status' => Order::STATUS['Placed']
+            'status' => Order::STATUS['Placed'],
         ]);
 
         $order->products()->sync($products);

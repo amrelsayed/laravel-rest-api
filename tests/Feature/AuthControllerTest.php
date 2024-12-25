@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
@@ -28,7 +27,7 @@ class AuthControllerTest extends TestCase
     {
         $response = $this->postJson(route('login'), [
             'email' => $this->user->email,
-            'password' => 'password'
+            'password' => 'password',
         ]);
 
         $response->assertOk()
@@ -38,7 +37,7 @@ class AuthControllerTest extends TestCase
                     'id',
                     'name',
                     'email',
-                    'created_at'
+                    'created_at',
                 ],
             ]);
     }
@@ -47,7 +46,7 @@ class AuthControllerTest extends TestCase
     {
         $response = $this->postJson(route('login'), [
             'email' => $this->user->email,
-            'password' => 'passwordsdf'
+            'password' => 'passwordsdf',
         ]);
 
         $response->assertStatus(422)
@@ -57,7 +56,7 @@ class AuthControllerTest extends TestCase
     public function test_login_fails_with_missing_email(): void
     {
         $response = $this->postJson(route('login'), [
-            'password' => 'password'
+            'password' => 'password',
         ]);
 
         $response->assertStatus(422)
@@ -67,7 +66,7 @@ class AuthControllerTest extends TestCase
     public function test_login_fails_with_missing_password(): void
     {
         $response = $this->postJson(route('login'), [
-            'email' => $this->user->email
+            'email' => $this->user->email,
         ]);
 
         $response->assertStatus(422)
@@ -79,16 +78,16 @@ class AuthControllerTest extends TestCase
         $token = $this->user->createToken($this->user->name)->plainTextToken;
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer '.$token,
         ])->post(route('logout'));
 
         $response->assertStatus(200)
             ->assertJson([
-                'message' => 'user logged out'
+                'message' => 'user logged out',
             ]);
 
         $this->assertDatabaseMissing('personal_access_tokens', [
-            'tokenable' => $this->user->id
+            'tokenable' => $this->user->id,
         ]);
     }
 

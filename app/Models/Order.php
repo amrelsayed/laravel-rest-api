@@ -23,7 +23,7 @@ class Order extends Model
         3 => 'Completed',
         4 => 'Failed',
         5 => 'Returned',
-        6 => 'Partialy_Returned'
+        6 => 'Partialy_Returned',
     ];
 
     protected $fillable = [

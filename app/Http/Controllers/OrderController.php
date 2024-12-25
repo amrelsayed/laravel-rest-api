@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Actions\Order\CreateOrderAction;
 use App\Http\Requests\CreateOrderRequest;
 use App\Http\Resources\OrderResource;
-use App\Models\Order;
-use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
